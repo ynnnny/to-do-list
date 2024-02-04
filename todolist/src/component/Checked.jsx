@@ -1,12 +1,12 @@
 import React from 'react'
 
 export default function Checked(props) {
-
+  const {isChecked,setTasks,setisChecked} = props
 
     const handleAll = () => {
-        let previsChecked = props.isChecked
-        props.setisChecked((previsChecked) => !previsChecked);
-        props.setTasks((prevTasks) =>
+        let previsChecked = isChecked
+        setisChecked((previsChecked) => !previsChecked);
+        setTasks((prevTasks) =>
           prevTasks.map((task) => ({
             ...task,
             isCompleted: !previsChecked,
@@ -16,7 +16,7 @@ export default function Checked(props) {
 
   return (
     <div className="toggle-all-container">
-                <input className="toggle-all" type="checkbox" checked={props.isChecked} />
+                <input className="toggle-all" type="checkbox"/>
                 <label className="toggle-all-label" htmlFor="toggle-all"  onClick={handleAll}>Mark all as complete</label>
             </div>
   )

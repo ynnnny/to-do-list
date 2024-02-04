@@ -1,38 +1,37 @@
 import React from 'react'
 
 export default function Footer(props) {
+    const {setCurrent,setTasks,current,tasks} = props
 
-    const tasks = [...props.tasks]
-
+    const list = [{
+        page:"All"
+    },{
+        page:"Active"
+    },{
+        page:"Completed"
+    }]
 
     const handleCurrent = (index) =>{
-        props.setCurrent(index);
-        console.log(props.current);
+        setCurrent(index);
+        console.log(current);
       }
 
       const clearCompleted = ()=>{
-        props.setTasks(tasks.filter(task=> !task.isCompleted))
+        setTasks(tasks.filter(task=> !task.isCompleted))
       }
 
   return (
     <footer className="footer">
             <span className="todo-count">{tasks.filter(task=> !task.isCompleted).length} items left</span>
             <ul className="filters">
-                <li>
-                    <a href="#/" 
-                    className={props.current === 0? "selected":""}
-                    onClick={()=>handleCurrent(0)}>All</a>
-                </li>
-                <li>
-                    <a href="#/active"
-                    className={props.current === 1? "selected":""}
-                    onClick={()=>handleCurrent(1)}>Active</a>
-                </li>
-                <li>
-                    <a href="#/completed"
-                    className={props.current === 2? "selected":""}
-                    onClick={()=>handleCurrent(2)}>Completed</a>
-                </li>
+                {
+                    list.map((item,index)=>
+                    <li key={index}>
+                        <a href='#'
+                            className={current === index?"seleted":""}
+                            onClick={()=>handleCurrent(index)}>{item.page}</a>
+                    </li>)
+                }
             </ul>
             <button className="clear-completed" onClick={clearCompleted}>Clear completed</button>
         </footer>
